@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Rock Paper Scissors</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    
+    <h1>Win the Battle - Save the World!</h1>
+    <h2>Click on Your Preferred Weapon and Start a 5 Round Game</h2>
+    <section class="choice-container">
+        <div class="rock"><i class="fa fa-hand-rock-o" aria-hidden="true"></i></div>
+        <div class="paper"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></div>
+        <div class="scissors"><i class="fa fa-hand-scissors-o" aria-hidden="true"></i></div>
+    </section>
+    <section class="score-container">
+        <h3 class="user-wins">Your Wins: 0</h3>
+        <h3 class="tie-game">Tie Game: 0</h3>
+        <h3 class="computer-wins">Computer Wins: 0</h3> 
+    </section>
 </body>
 </html>

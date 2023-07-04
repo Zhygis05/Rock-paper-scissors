@@ -1,3 +1,9 @@
+// GAME LOGIC: START
+
+let computerScore = 0;
+let userScore = 0;
+let tieGame = 0;
+
 function getComputerChoice() {
     let computerChoice = [`rock`, `paper`, `scissors`];
     let choice = Math.floor(Math.random() * 3);
@@ -6,74 +12,111 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
 computerSelection = getComputerChoice();
-playerSelection = prompt('Enter rock, paper, or scissors');
-playerSelection = playerSelection.toLowerCase();
-        
- if (
-playerSelection !== 'rock' &&
-playerSelection !== 'paper' &&
-playerSelection !== 'scissors'
-) { 
-     do {
-     
-playerSelection = prompt(`Please enter a valid value of the given above:
-1. rock 
-2. paper  
-3. scissors`);
-playerSelection = playerSelection.toLowerCase();
- }
-     while (playerSelection !== 'rock' &&
-playerSelection !== 'paper' &&
-playerSelection !== 'scissors')
- }
-     
+
  if (playerSelection === computerSelection) {
-     return 0;
+    tieGame++;
  }
  else if (playerSelection === `rock` && computerSelection === `paper`) {
-     return -1;
+    computerScore++;
      // Lose
  }
 else if (playerSelection === `rock` && computerSelection === `scissors`) {
-     return 1;
+     userScore++;
     // Win
  }
 else if (playerSelection === `paper` && computerSelection === `rock`) {
-     return 1;
+     userScore++;
     // Win
  }
 else if (playerSelection === `paper` && computerSelection === `scissors`) {
-     return -1;
+     computerScore++;
     // Lose
  }
 else if (playerSelection === `scissors` && computerSelection === `paper`) {
-     return 1;
+     userScore++;
     // Win
  }
 else if (playerSelection === `scissors` && computerSelection === `rock`) {
-     return -1;
+     computerScore++;
     // Lose
  }
-      }
-      
-function game() {
-    let userCount = 0;
-    let computerCount = 0;
-    let tieGame = 0;
-    for (let i = 0; i < 5; i++) {
-    const result = playRound ();
-    if (result === 1) {
-    userCount++;}
-    else if (result === -1) {
-    computerCount++;}
-    else tieGame++;
-    }
-    
-const userScore = userCount;
-const computerScore = computerCount;
-const evenScore = tieGame;
 
-console.log(`Your Score: ${userScore}`);
-console.log(`Computer Score: ${computerScore}`);
-console.log(`Number of tie games: ${tieGame}`);
-};
+ scoreUpdate();
+    }
+
+function scoreUpdate() {
+    userWinner.textContent = `Your Wins: ${userScore}`;
+    computerWinner.textContent = `Computer Wins: ${computerScore}`;
+    evenGame.textContent = `Tie Game: ${tieGame}`;
+
+    if (userScore === 5) {
+      newChildren.textContent = `You Won! The World is Saved!`;
+      endGame.replaceChildren(newChildren, refreshBtn);
+   }
+     else if (computerScore === 5) {
+      newChildren.textContent = `You Lost! Now Only SonGoku Can Save Us`;
+      endGame.replaceChildren(newChildren, refreshBtn);
+     }
+    else if (tieGame === 5) {
+      newChildren.textContent = `It's a Tie! Keep it up! You're halfway there!`;
+      endGame.replaceChildren(newChildren, refreshBtn);
+    }
+}
+      
+
+// GAME LOGIC END
+
+// UI START
+
+
+const iconRock = document.querySelector(`.rock`);
+const iconPaper = document.querySelector(`.paper`);
+const iconScissors = document.querySelector(`.scissors`);
+const userWinner = document.querySelector(`.user-wins`);
+const computerWinner = document.querySelector(`.computer-wins`);
+const evenGame = document.querySelector(`.tie-game`);
+const endGame = document.querySelector(`.score-container`);
+const newChildren = document.createElement(`h4`);
+const refreshBtn = document.createElement(`button`);
+
+
+refreshBtn.textContent = `Click Here to Restart the Game`;
+
+newChildren.style.color = `#F2E9E4`;
+newChildren.style.fontSize = `2.0em`;
+
+refreshBtn.style.padding = `15px`;
+refreshBtn.style.fontSize = `20px`;
+refreshBtn.style.color = `#F2E9E4`;
+refreshBtn.style.background = `#333648`;
+refreshBtn.style.letterSpacing = `1px`;
+refreshBtn.style.border = `3px solid #9A8C98`;
+refreshBtn.style.borderRadius = `35px`;
+refreshBtn.style.cursor = `pointer`;
+
+function animateButton() {
+  refreshBtn.style.transform = 'scale(1.5)';
+}
+refreshBtn.addEventListener('mouseover', animateButton);
+
+function resetButton () {
+   refreshBtn.style.transform = `scale(1)`;
+}
+refreshBtn.addEventListener(`mouseout`, resetButton);
+
+function pageReload() {
+   location.reload();
+}
+refreshBtn.addEventListener(`click`, pageReload);
+
+
+iconRock.addEventListener(`click`, () => {const playerSelection = `rock`;
+playRound(playerSelection, getComputerChoice());});
+
+iconPaper.addEventListener(`click`, () => {const playerSelection = `paper`;
+playRound(playerSelection, getComputerChoice());});
+
+iconScissors.addEventListener(`click`, () => {const playerSelection = `scissors`;
+playRound(playerSelection, getComputerChoice());});
+
+// UI END
